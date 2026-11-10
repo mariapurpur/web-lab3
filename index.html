@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="container">
+        <header class="header">
+            <h1>2048</h1>
+            <div class="score-box">
+                <span>СЧЕТ</span>
+                <p id="score">0</p>
+            </div>
+        </header>
+
+        <div class="buttons">
+            <button id="new-game">Новая игра</button>
+            <button id="undo">Отменить ход</button>
+            <button id="show-leaders">Рекорды</button>
+        </div>
+
+        <div id="game-board" class="game-board"></div>
+
+        <div class="mobile-controls">
+            <button data-direction="up">↑</button>
+            <div>
+                <button data-direction="left">←</button>
+                <button data-direction="down">↓</button>
+                <button data-direction="right">→</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="game-over" class="modal hidden">
+        <div class="modal-content">
+            <h2>Игра окончена :(</h2>
+            <p>Ваш результат: <span id="final-score">0</span></p>
+
+            <input type="text" id="player-name"
+                   placeholder="Введите имя">
+
+            <button id="save-record">Сохранить результат</button>
+            <button id="restart">Начать заново</button>
+        </div>
+    </div>
+
+    <div id="leaderboard" class="modal hidden">
+        <div class="modal-content">
+            <h2>Таблица лидеров</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Очки</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-list"></tbody>
+            </table>
+
+            <button id="close-leaders">Закрыть</button>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/leaderboard.js"></script>
+    <script src="js/game.js"></script>
+
+</body>
+</html>
