@@ -1,6 +1,8 @@
 const boardSize = 4;
 let board = [];
 let score = 0;
+let previousState = null;
+let gameFinished = false;
 const gameBoard = document.getElementById('game-board');
 const scoreElement = document.getElementById('score');
 
@@ -85,6 +87,25 @@ function rotateBoard() {
     board = newBoard;
 }
 
+function checkGameOver() {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (board[i][j] === 0) return false;
+            if (j < 3 && board[i][j] === board[i][j + 1]) {
+                return false;
+            }
+            if (i < 3 && board[i][j] === board[i + 1][j]) {
+                return false;
+            }
+        }
+    }
+
+    document.getElementById('final-score').textContent = score;
+    document.getElementById('game-over').classList.remove('hidden');
+	gameFinished = true;
+    return true;
+}
+
 function move(direction) {
     const oldBoard = JSON.stringify(board);
     const oldScore = score;
@@ -123,6 +144,11 @@ function move(direction) {
         rotateBoard();
     }
 
+	previousState = {
+		board: JSON.parse(JSON.stringify(board)),
+		score: score
+	};
+	
     if (JSON.stringify(board) !== oldBoard) {
         addRandomTile();
         renderBoard();
@@ -131,6 +157,23 @@ function move(direction) {
         score = oldScore;
     }
 }
+
+function undoMove() {
+    if (!previousState || gameFinished) return;
+    board = previousState.board;
+    score = previousState.score;
+    previousState = null;
+    renderBoard();
+}
+
+document.getElementById('undo').addEventListener('click', undoMove);
+document.querySelectorAll('.mobile-controls button').forEach(button => {
+    button.addEventListener('click', function() {
+        const direction = this.dataset.direction;
+
+        move(direction);
+    });
+});
 
 document.addEventListener('keydown', function(event) {
     const keys = {
@@ -145,5 +188,16 @@ document.addEventListener('keydown', function(event) {
         move(keys[event.key]);
     }
 });
+
+function restartGame() {
+    document.getElementById('game-over').classList.add('hidden');
+    gameFinished = false;
+    previousState = null;
+    createBoard();
+}
+
+document.getElementById('new-game').addEventListener('click', restartGame);
+document.getElementById('restart').addEventListener('click', restartGame);
+
 
 createBoard();
