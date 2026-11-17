@@ -114,15 +114,18 @@ function move(direction) {
         rotateBoard();
         rotateBoard();
         rotateBoard();
+		saveGame();
     }
 
     if (direction === 'right') {
         rotateBoard();
         rotateBoard();
+		saveGame();
     }
 
     if (direction === 'down') {
         rotateBoard();
+		saveGame();
     }
 
     for (let i = 0; i < 4; i++) {
@@ -131,17 +134,20 @@ function move(direction) {
 
     if (direction === 'up') {
         rotateBoard();
+		saveGame();
     }
 
     if (direction === 'right') {
         rotateBoard();
         rotateBoard();
+		saveGame();
     }
 
     if (direction === 'down') {
         rotateBoard();
         rotateBoard();
         rotateBoard();
+		saveGame();
     }
 
 	previousState = {
@@ -164,6 +170,7 @@ function undoMove() {
     score = previousState.score;
     previousState = null;
     renderBoard();
+	saveGame();
 }
 
 document.getElementById('undo').addEventListener('click', undoMove);
@@ -199,5 +206,6 @@ function restartGame() {
 document.getElementById('new-game').addEventListener('click', restartGame);
 document.getElementById('restart').addEventListener('click', restartGame);
 
-
-createBoard();
+if (!loadGame()) {
+    createBoard();
+}

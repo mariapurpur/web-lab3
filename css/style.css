@@ -111,10 +111,90 @@ button:hover {
     display: none;
 }
 
+.cell {
+    transition: background 0.15s, transform 0.15s;
+}
+
+.tile-2 {
+    background: #eee4da;
+}
+
+.tile-4 {
+    background: #ede0c8;
+}
+
+.tile-8 {
+    background: #f2b179;
+    color: white;
+}
+
+.tile-16 {
+    background: #f59563;
+    color: white;
+}
+
+.tile-32 {
+    background: #f67c5f;
+    color: white;
+}
+
+.tile-64 {
+    background: #f65e3b;
+    color: white;
+}
+
+.tile-128 {
+    background: #edcf72;
+    color: white;
+    font-size: 30px;
+}
+
+.tile-256 {
+    background: #edcc61;
+    color: white;
+}
+
+.tile-512 {
+    background: #edc850;
+    color: white;
+}
+
+.tile-1024 {
+    background: #edc53f;
+    color: white;
+    font-size: 25px;
+}
+
+.tile-2048 {
+    background: #edc22e;
+    color: white;
+    font-size: 25px;
+}
+
 .mobile-controls {
     display: none;
     margin-top: 20px;
     text-align: center;
+}
+
+.cell {
+    transition: all 0.2s ease;
+}
+
+.cell:not(:empty) {
+    animation: appear 0.15s ease;
+}
+
+@keyframes appear {
+    from {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @media (max-width: 600px) {
@@ -136,5 +216,31 @@ button:hover {
 
     .cell {
         font-size: 25px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 10px;
+    }
+
+    .game-board {
+        gap: 6px;
+        padding: 6px;
+    }
+
+    .cell {
+        font-size: 22px;
+    }
+
+    .buttons button {
+        font-size: 12px;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 601px) {
+    .mobile-controls {
+        display: none;
     }
 }
